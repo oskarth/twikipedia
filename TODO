@@ -2,3 +2,5 @@
 - wiki and wiki/ should be the same.
 - figure out line break in content
 - BUG: enter in contenteditable
+- turn off spell check
+- edit only when clicking edit button, not when highlighting text, same with save.
