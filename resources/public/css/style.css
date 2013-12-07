@@ -1,0 +1,44 @@
+/* shamelessly inspired by the big interwebs */
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  background: #EEE;
+  color: #333;
+}
+
+#wrapper {
+  width: 600px;
+  background: #FFF;
+  padding: 1em;
+  margin: 1em auto;
+  min-height: 300px;
+  border-top: 4px solid;
+  box-shadow: 0 2px 10px rgba(0,0,0,1);
+}
+
+h1 {
+  margin-top: 0;
+  line-height: 1.3em;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 1.5em 0 0.5em;
+}
+
+div,
+p {
+  line-height: 1.6em;
+}
+
+section div {
+  padding: 1em;
+  background: #FFF;
+  border-radius: 2px;
+  outline: none;
+  border: 2px solid black;
+}
+
+section div:focus {
+  background: #EFEFEF;
+}
