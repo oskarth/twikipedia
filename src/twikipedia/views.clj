@@ -3,17 +3,21 @@
 
 (def db (atom {:foo "lix" :bar "lux"}))
 
-(defn index-page []
+(defn template [body]
   (html5
    [:head
-    [:title "Hi"
+    [:title "Twikipedia - soul of wit?"
      (include-css "/css/style.css")]
-    [:body
-     [:h1 "Hi"]]]))
+    [:body body]]))
+
+(defn index-page []
+  (template
+   [:h1 "Hi"]))
+
+(defn page-in-db? [page]
+  (not (nil? ((keyword page) @db))))
 
 (defn wiki-page [page]
-  ;; page exists? serve that
-  ;; if not, view new.
-  (if (nil? ((keyword page) @db))
-    "New page."
-    (str "This is " ((keyword page) @db))))
+  (if (page-in-db? page)
+    (str ((keyword page) @db))
+    "New page."))
