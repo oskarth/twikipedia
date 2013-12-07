@@ -1,3 +1,4 @@
 - basics of a wiki: add, edit, view page
 - wiki and wiki/ should be the same.
 - figure out line break in content
+- BUG: enter in contenteditable
