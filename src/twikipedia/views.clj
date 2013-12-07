@@ -1,5 +1,5 @@
 (ns twikipedia.views
-  (:use [hiccup core pages]))
+  (:use [hiccup core page]))
 
 (defn index-page []
   (html5
