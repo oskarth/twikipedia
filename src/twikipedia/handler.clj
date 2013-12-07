@@ -7,10 +7,11 @@
 (defroutes app-routes
   (GET "/" [] (index-page))
   (GET "/wiki" [] "Wiki World")
-  (GET "/wiki/:page" [page] (str "Welcome to " page))
+  (GET "/wiki/:page" [page] (wiki-page page))
   ;; everything after this is a url
   (route/resources "/")
   (route/not-found "Not Found"))
+
 
 (def app
   (handler/site app-routes))
