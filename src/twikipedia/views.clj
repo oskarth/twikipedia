@@ -23,6 +23,11 @@ amet.")
 
 (def db (atom {:foo "lix" :bar "lux"}))
 
+(def cell-cycle-img
+  [:img
+   {:src "/img/cell-cycle.png" :width "300" :height "300"
+    :align "right"}])
+
 (defn template [body]
   (html
    [:head
@@ -34,13 +39,15 @@ amet.")
 (defn index-page []
   (template
    (html5
-    [:h1 "Twikipedia"]
+   [:div [:h1 "The Cell Cycle"]]
+    cell-cycle-img
     [:section ;; this is for the editable
      [:div {:contenteditable "true"}
       lorem]]
     [:div {:align "right"}
      ;;[:button {:name "btn"} "Edit"]
-     [:button {:name "save"} "Save"]]))) ;; add action here
+    ;;[:button {:name "save"} "Save"]
+     ]))) ;; add action here
 
 (defn page-in-db? [page]
   (not (nil? ((keyword page) @db))))
