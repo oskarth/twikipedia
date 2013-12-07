@@ -4,3 +4,5 @@
 - BUG: enter in contenteditable
 - turn off spell check
 - edit only when clicking edit button, not when highlighting text, same with save.
+- include one image
+- save to disk
