@@ -35,9 +35,12 @@ amet.")
   (template
    (html5
     [:h1 "Twikipedia"]
-    [:section
+    [:section ;; this is for the editable
      [:div {:contenteditable "true"}
-      lorem]])))
+      lorem]]
+    [:div {:align "right"}
+     ;;[:button {:name "btn"} "Edit"]
+     [:button {:name "save"} "Save"]]))) ;; add action here
 
 (defn page-in-db? [page]
   (not (nil? ((keyword page) @db))))
