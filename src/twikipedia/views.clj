@@ -67,6 +67,10 @@ amet.")
      [:hr]
      [:div#underbar
       (str "close to nothing")]]])) ;; toggle contenteditable
+;; one of thirty two
+;; a book has barely any state at all. what page you are at, and that is it.
+;; the rest is yours.
+;; imagine with a keyboard. "connected" with others.
 
 (defn wiki-page [page]
   (if (page-in-db? page)
