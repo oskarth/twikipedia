@@ -55,7 +55,7 @@ amet.")
   (html5
    [:head (include-css "/css/style.css")]
    [:body
-;;    [:div#topbar (link-to "/login" "login")]
+    [:div#topbar (link-to "/login" "login")]
     [:div#wrap {:margin-top "-1em"}
      [:h2 "The Cell Cycle"]
      [:hr]

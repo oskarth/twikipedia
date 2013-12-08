@@ -8,6 +8,7 @@ html {
 
 #topbar {
     margin: 1em;
+    margin-bottom: -2em;
     text-align: right;
 }
 
