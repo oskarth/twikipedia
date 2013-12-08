@@ -55,7 +55,8 @@ amet.")
   (html5
    [:head (include-css "/css/style.css")]
    [:body
-    [:div#topbar (link-to "/login" "login")]
+    [:div#topbar
+     [:h1 (link-to "/" "TWIKIPEDIA")]]
     [:div#wrap {:margin-top "-1em"}
      [:h2 "The Cell Cycle"]
      [:hr]
@@ -65,8 +66,8 @@ amet.")
        :align "right"}]
      lorem
      [:hr]
-     [:div#underbar
-      (str "close to nothing")]]])) ;; toggle contenteditable
+     [:div#underbar "short and sweet, once again they meet"]]])) ;; toggle contenteditable
+;; "brevis esse laboro, obscurus fio"
 ;; one of thirty two
 ;; a book has barely any state at all. what page you are at, and that is it.
 ;; the rest is yours.
