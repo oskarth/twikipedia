@@ -1,5 +1,5 @@
 (ns twikipedia.views
-  (:use [hiccup core page]))
+  (:use [hiccup core page element]))
 
 (def lorem
   "Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -25,8 +25,7 @@ amet.")
 
 (def cell-cycle-img
   [:img
-   {:src "/img/cell-cycle.png" :width "300" :height "300"
-    :align "right"}])
+   {:src "/img/cell-cycle.png" :width "300" :height "300" :align "right"}])
 
 (defn template [body]
   (html
@@ -52,7 +51,24 @@ amet.")
 (defn page-in-db? [page]
   (not (nil? ((keyword page) @db))))
 
+(defn wiki-html [page]
+  (html5
+   [:head (include-css "/css/style.css")]
+   [:body
+;;    [:div#topbar (link-to "/login" "login")]
+    [:div#wrap {:margin-top "-1em"}
+     [:h2 "The Cell Cycle"]
+     [:hr]
+     [:img
+      {:src "/img/cell-cycle.png"
+       :width "300" :height "300"
+       :align "right"}]
+     lorem
+     [:hr]
+     [:div#underbar
+      (str "close to nothing")]]])) ;; toggle contenteditable
+
 (defn wiki-page [page]
   (if (page-in-db? page)
-    (str ((keyword page) @db))
+    (wiki-html (str ((keyword page) @db)))
     "New page."))
