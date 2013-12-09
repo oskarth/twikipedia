@@ -22,6 +22,15 @@ html {
     color:#333;
 }
 
+a {
+    text-decoration:none;
+    color:#333;
+}
+
+li {
+    margin:0.5em;
+}
+
 #underbar {
     text-align:center;
     margin-top:-0.6em;
