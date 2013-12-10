@@ -31,6 +31,11 @@ li {
     margin:0.5em;
 }
 
+li.none {
+    list-style-position:outside;
+    list-style: none;
+}
+
 #underbar {
     text-align:center;
     margin-top:-0.6em;

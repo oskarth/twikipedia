@@ -8,7 +8,8 @@
   (GET "/" [] (index-page))
   (GET "/wiki" [] "Wiki World")
   (GET "/wiki/:page" [page] (wiki-page page))
-  ;; everything after this is a url
+  (GET "/new" [] (new-page))
+  (POST "/new" [:as q] (new-page-post (:params q)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
