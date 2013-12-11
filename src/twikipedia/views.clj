@@ -7,10 +7,25 @@
 
 (load-data)
 
+(defn keywordify [title] ;; How To Make Scrambled Eggs -> how-to-make-scrambled-eggs
+  (keyword (clojure.string/replace (clojure.string/lower-case title) " " "-")))
+
 (defn save-data []
   (spit "data.db" (prn-str @db)))
 
-;;(save-data)
+(defn add! [title src text]
+  (swap! db assoc (keywordify title)
+         {:title title
+          :src src
+          :text text})
+  (save-data))
+
+(add! "How To Make Scrambled Eggs"
+      "/img/scrambled-eggs.png"
+      "The most important thing about scrambled eggs is stopping them from overcooking. Start off with eggs in the pan and some butter. Don't salt or whisk the eggs before they get into your pan. Use a spatula. Start on a generous heat. Give them a break from the heat once they get going, so they can combine and avoid drying out, repeat three or four times. Continue stirring, it's a live thing. When it starts to get together, take it off. Put creme fraiche to cool it. Season with salt, peppar and a touch of chives.")
+
+;;(:how-to-make-scrambled-eggs @db)
+
 ;;(load-data)
 
 
@@ -94,13 +109,12 @@ dislike opaqueness and sticklers. Pour a glass and have a browse!"
   (template
    (html
     [:p "Stick to under 1000 characters. Use an image. Aim to include a concrete example." [:br]
-     (form-to [:post "new"]
-              ;; why won't size and cols be the same attr?
-              (text-field {:placeholder "Title" :size "50" :maxlength "50"} "title") [:br]
-              (text-field {:placeholder "URL. For example: \"cell-cycle\"" :size "50" :maxlength "50"} "url") [:br]
-              (file-upload {:placeholder "Upload file" :size "112px" :maxlength "80"} "img-file") [:br]
-              (text-area {:placeholder "Text" :rows "15" :cols "80" :maxlength "1000"} "text")
-              (submit-button "Submit"))])))
+    [:form {:action "/new" :method "POST" :enctype "multipart/form-data"}
+       ;; why won't size and cols be the same attr?
+       (text-field {:placeholder "Title" :size "50" :maxlength "50"} "title") [:br]
+       (file-upload {:placeholder "Upload file" :size "112px" :maxlength "80"} "img-file") [:br]
+       (text-area {:placeholder "Text" :rows "15" :cols "80" :maxlength "1000"} "text")
+      (submit-button "Submit")]])))
 
 (defn new-page-post [params]
   (str (:text params)))
