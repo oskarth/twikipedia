@@ -1,46 +1,6 @@
 (ns twikipedia.views
   (:use [hiccup core page element form]))
 
-(def db (atom {}))
-(defn load-data []
-  (reset! db (read-string (slurp "data.db"))))
-
-(load-data)
-
-(defn keywordify [title] ;; How To Make Scrambled Eggs -> how-to-make-scrambled-eggs
-  (keyword (clojure.string/replace (clojure.string/lower-case title) " " "-")))
-
-(defn save-data []
-  (spit "data.db" (prn-str @db)))
-
-(defn add! [title src text]
-  (swap! db assoc (keywordify title)
-         {:title title
-          :src src
-          :text text})
-  (save-data))
-
-(add! "How To Make Scrambled Eggs"
-      "/img/scrambled-eggs.png"
-      "The most important thing about scrambled eggs is stopping them from overcooking. Start off with eggs in the pan and some butter. Don't salt or whisk the eggs before they get into your pan. Use a spatula. Start on a generous heat. Give them a break from the heat once they get going, so they can combine and avoid drying out, repeat three or four times. Continue stirring, it's a live thing. When it starts to get together, take it off. Put creme fraiche to cool it. Season with salt, peppar and a touch of chives.")
-
-;;(:how-to-make-scrambled-eggs @db)
-
-;;(load-data)
-
-
-#_(swap! db (assoc :scrambled-eggs
-            {:title "How To Make Scrambled Eggs"
-             :src "/img/scrambled-eggs.png"
-             :text "The most important thing about scrambled eggs is stopping them from overcooking. Start off with eggs in the pan and some butter. Don't salt or whisk the eggs before they get into your pan. Use a spatula. Start on a generous heat. Give them a break from the heat once they get going, so they can combine and avoid drying out, repeat three or four times. Continue stirring, it's a live thing. When it starts to get together, take it off. Put creme fraiche to cool it. Season with salt, peppar and a touch of chives."}))
-
-;; how should I store git WIPs?
-;; also no forget devop
-
-;; O(n) notation explain
-
-
-
 (def lorem (:text (:cell-cycle @db)))
 
 (def cell-cycle-img

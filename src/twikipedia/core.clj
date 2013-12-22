@@ -1,4 +1,4 @@
-(ns twikipedia.handler
+(ns twikipedia.core
   (:use
    twikipedia.views)
   (:require
@@ -17,16 +17,59 @@
    [compojure.core :refer [defroutes ANY GET POST]])
   (:import [java.net URI URL]))
 
+;; Almost like a kata
 ;; 1. Create a brown dog named Al (POST /dogs)
 ;; 2. Rename Al to Rover - update (PUT /dogs/1234)
 ;; 3. Tell me about a particular dog (GET /dogs/1234)
 ;; 4. Tell me about all dogs (GET /dogs)
 ;; 5. Delete Rover :( (DELETE /dogs/1234)
 
-;; we hold a entries in this ref
-(defonce entries (ref {}))
+;; Import database stuff from views file
+(def db (atom {}))
+(defn load-data []
+  (reset! db (read-string (slurp "data.db"))))
+
+(load-data)
+
+(defn keywordify [title] ;; How To Make Scrambled Eggs -> how-to-make-scrambled-eggs
+  (keyword (clojure.string/replace (clojure.string/lower-case title) " " "-")))
+
+(defn save-data []
+  (spit "data.db" (prn-str @db)))
+
+(defn add! [title src text]
+  (swap! db assoc (keywordify title)
+         {:title title
+          :src src
+          :text text})
+  (save-data))
+
+(add! "How To Make Scrambled Eggs"
+      "/img/scrambled-eggs.png"
+      "The most important thing about scrambled eggs is stopping them from overcooking. Start off with eggs in the pan and some butter. Don't salt or whisk the eggs before they get into your pan. Use a spatula. Start on a generous heat. Give them a break from the heat once they get going, so they can combine and avoid drying out, repeat three or four times. Continue stirring, it's a live thing. When it starts to get together, take it off. Put creme fraiche to cool it. Season with salt, peppar and a touch of chives.")
+
+;;(:how-to-make-scrambled-eggs @db)
+
+;;(load-data)
+
+
+#_(swap! db (assoc :scrambled-eggs
+            {:title "How To Make Scrambled Eggs"
+             :src "/img/scrambled-eggs.png"
+             :text "The most important thing about scrambled eggs is stopping them from overcooking. Start off with eggs in the pan and some butter. Don't salt or whisk the eggs before they get into your pan. Use a spatula. Start on a generous heat. Give them a break from the heat once they get going, so they can combine and avoid drying out, repeat three or four times. Continue stirring, it's a live thing. When it starts to get together, take it off. Put creme fraiche to cool it. Season with salt, peppar and a touch of chives."}))
+
+;; how should I store git WIPs?
+;; also no forget devop
+
+;; O(n) notation explain
+
+
+
 
 ;;@entries
+
+(defn get-entry [id]
+  "foo")
 
 (def postbox-counter (atom 0))
 
@@ -41,35 +84,23 @@
 
 (defresource list-resource
   :available-media-types ["application/json"]
-  ;; how deal with json?
   :allowed-methods [:get :post]
   :post! (fn [ctx] (do (swap! postbox-counter inc)
                       (prn "ctxkeys " (str (keys ctx)))))
-
-   ;;:location #(build-entry-url (get % :request) (get % ::id))
-  
-   ;;  :post! #(prn "posting" (str (::data %))) ;; side effect
-   ;;:post-redirect? true
-   ;;:location "list"
    :handle-ok (fn [_] (str "The counter is " @postbox-counter))
-   ;;  :handle-ok ::entry
-   ;;  :handle-ok "what"
-   :handle-not-acceptable "Sorry, not but language."
    )
 
-;; smt like this
 ;; :handle-ok (fn [_] (format "The counter is %d" @dbg-counter))
 ;;  :post! (fn [_] (swap! dbg-counter inc))
+
+;; get should return something.
 
 ;; we can PUT GET and DELETE to "dogs/1234"
 (defresource entry-resource [id]
   :available-media-types ["application/json"]
-  ;;  :allowed-methods [:get :put :delete]
+    :allowed-methods [:get :put :delete]
   :post! #(prn "posting" (str (::data %))) ;; side effect
-  ;;:post-redirect? true
-  ;;:location "entry"
-  :handle-ok ::entry
-)
+  :handle-ok (get-entry id)) ;; is this ok?
 
 (defroutes app
   (ANY "/wiki/:id" [id] (entry-resource id))
@@ -82,7 +113,8 @@
 (def handler
   (-> app
       (wrap-params)
-      (wrap-trace :header :ui)))
+      ))
+;;(wrap-trace :header :ui)
 
 ;; (wrap-json-response)
 

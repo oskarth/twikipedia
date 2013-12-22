@@ -10,7 +10,7 @@
                  [cheshire "5.2.0"]
                  [liberator "0.10.0"]]
   :plugins [[lein-ring "0.8.8"]]
-  :ring {:handler twikipedia.handler/handler}
+  :ring {:handler twikipedia.core/handler}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})
