@@ -54,7 +54,7 @@
     (include-css "/css/style.css")
     [:body
      [:div#topbar
-     [:h1 (link-to "/" "TWIKIPEDIA")]]
+     [:h1 (link-to "/" "layterm")]]
      [:div#wrap body
       [:hr]
       [:div#underbar "short and sweet, once again they meet"]]
